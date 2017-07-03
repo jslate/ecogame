@@ -28,7 +28,7 @@ class GameWindow < Gosu::Window
   end
 
   def new_food_count
-    (@foods.count * 0.008).to_i
+    (@foods.count * 0.004).to_i
   end
 
   def draw
