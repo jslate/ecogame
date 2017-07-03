@@ -55,4 +55,13 @@ class GameWindow < Gosu::Window
       ZOrder::BACKGROUND)
   end
 
+  def self.draw_rect(x, y, width, height, color, zorder)
+    draw_quad(
+      x, y, color,
+      x + width, y, color,
+      x, y + height, color,
+      x + width, y + height, color,
+      zorder)
+  end
+
 end
