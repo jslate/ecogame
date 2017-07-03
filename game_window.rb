@@ -8,8 +8,8 @@ class GameWindow < Gosu::Window
   def initialize
     super(WIDTH, HEIGHT, false)
     self.caption = "EcoGame"
-    @foods = 1.upto(1000).to_a.map {|_i| Food.new(self, rand(WIDTH), rand(HEIGHT)) }
-    @herbavores = 1.upto(5).to_a.map {|_i| Herbavore.new(*[self, random_location].flatten) }
+    @foods = 1.upto(1000).to_a.map {|_i| Food.new(self, *random_location) }
+    @herbavores = 1.upto(5).to_a.map {|_i| Herbavore.new(self, *random_location) }
   end
 
   def random_location
@@ -22,7 +22,7 @@ class GameWindow < Gosu::Window
     @foods.reject!(&:eaten)
     @herbavores.reject!(&:dead)
     @herbavores = @herbavores.map(&:multiply).flatten
-    new_food_count.times { @foods << Food.new(self, rand(WIDTH), rand(HEIGHT)) }
+    new_food_count.times { @foods << Food.new(self, *random_location) }
   end
 
   def new_food_count
@@ -34,9 +34,9 @@ class GameWindow < Gosu::Window
     @foods.each(&:draw)
     draw_background
     Gosu::Image.from_text(self, "herbavores: #{@herbavores.count}",
-      Gosu.default_font_name, 45).draw(20, 20, ZOrder::TEXT, 1, 1, WHITE)
+      Gosu.default_font_name, 45).draw(20, 10, ZOrder::TEXT, 1, 1, WHITE)
     Gosu::Image.from_text(self, "foods: #{@foods.count}",
-      Gosu.default_font_name, 45).draw(20, 60, ZOrder::TEXT, 1, 1, WHITE)
+      Gosu.default_font_name, 45).draw(20, 50, ZOrder::TEXT, 1, 1, WHITE)
   end
 
   def button_down(id)
