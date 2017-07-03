@@ -21,14 +21,14 @@ class Herbavore
     @x += Gosu::offset_x(@angle, @speed)
     @y += Gosu::offset_y(@angle, @speed)
     @x %= @window.width
-    @y %= @window.height
+    @y %= @window.height - 100
   end
 
   def draw
-    @window.draw_quad(@x, @y, @color,
-      @x + SIZE, @y, @color,
-      @x, @y + SIZE, @color,
-      @x + SIZE, @y + SIZE, @color,
+    @window.draw_quad(@x, @y + 100, @color,
+      @x + SIZE, @y + 100, @color,
+      @x, @y + 100 + SIZE, @color,
+      @x + SIZE, @y + 100 + SIZE, @color,
     ZOrder::HERBAVORE)
   end
 
