@@ -11,7 +11,7 @@ class GameWindow < Gosu::Window
     super(WIDTH, HEIGHT, false)
     self.caption = "EcoGame"
     @foods = 1.upto(1000).to_a.map {|_i| Food.new(self, *random_location) }
-    @herbavores = 1.upto(5).to_a.map {|_i| Herbavore.new(self, *random_location) }
+    @herbivores = 1.upto(5).to_a.map {|_i| Herbivore.new(self, *random_location) }
   end
 
   def random_location
@@ -19,11 +19,11 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    @herbavores.each(&:move)
-    @herbavores.each { |herbavore| herbavore.eat(@foods) }
+    @herbivores.each(&:move)
+    @herbivores.each { |herbivore| herbivore.eat(@foods) }
     @foods.reject!(&:eaten)
-    @herbavores.reject!(&:dead)
-    @herbavores = @herbavores.map(&:multiply).flatten
+    @herbivores.reject!(&:dead)
+    @herbivores = @herbivores.map(&:multiply).flatten
     new_food_count.times { @foods << Food.new(self, *random_location) }
   end
 
@@ -32,15 +32,15 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    @herbavores.each(&:draw)
+    @herbivores.each(&:draw)
     @foods.each(&:draw)
     draw_background
     menu_text = Gosu::Font.new(25, {name: 'default'})
     menu_text.draw('Herbivores', 10, 10, ZOrder::TEXT)
-    menu_text.draw_rel(@herbavores.count, MENU_WIDTH - 10, 10, ZOrder::TEXT, 1, 0)
+    menu_text.draw_rel(@herbivores.count, MENU_WIDTH - 10, 10, ZOrder::TEXT, 1, 0)
     menu_text.draw('Food', 10, 35, ZOrder::TEXT)
     menu_text.draw_rel(@foods.count, MENU_WIDTH - 10, 35, ZOrder::TEXT, 1, 0)
-    # Gosu::Image.from_text(self, "herbavores: #{@herbavores.count}",
+    # Gosu::Image.from_text(self, "herbivores: #{@herbivores.count}",
     #   Gosu.default_font_name, 45).draw(20, 10, ZOrder::TEXT, 1, 1, WHITE)
     # Gosu::Image.from_text(self, "foods: #{@foods.count}",
     #   Gosu.default_font_name, 45).draw(20, 50, ZOrder::TEXT, 1, 1, WHITE)

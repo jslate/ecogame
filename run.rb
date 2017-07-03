@@ -1,10 +1,10 @@
 require 'gosu'
 require './food'
-require './herbavore'
+require './herbivore'
 require './game_window'
 
 module ZOrder
-  BACKGROUND, FOOD, HERBAVORE, MENU, TEXT = *0..4
+  BACKGROUND, FOOD, HERBIVORE, MENU, TEXT = *0..4
 end
 
 window = GameWindow.new

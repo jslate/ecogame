@@ -1,4 +1,4 @@
-class Herbavore
+class Herbivore
 
   attr_reader :dead
 
@@ -40,7 +40,7 @@ class Herbavore
       @x + quad_size, @y, color,
       @x, @y + quad_size, color,
       @x + quad_size, @y + quad_size, color,
-    ZOrder::HERBAVORE)
+    ZOrder::HERBIVORE)
   end
 
   def quad_size
