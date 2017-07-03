@@ -21,7 +21,7 @@ class Herbavore
     @x += Gosu::offset_x(@angle, @speed)
     @y += Gosu::offset_y(@angle, @speed)
     @x %= @window.width
-    @y %= @window.height - 100
+    @y %= @window.height
   end
 
   def draw
