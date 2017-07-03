@@ -25,10 +25,10 @@ class Herbavore
   end
 
   def draw
-    @window.draw_quad(@x, @y + 100, @color,
-      @x + SIZE, @y + 100, @color,
-      @x, @y + 100 + SIZE, @color,
-      @x + SIZE, @y + 100 + SIZE, @color,
+    @window.draw_quad(@x, @y, @color,
+      @x + SIZE, @y, @color,
+      @x, @y + SIZE, @color,
+      @x + SIZE, @y + SIZE, @color,
     ZOrder::HERBAVORE)
   end
 

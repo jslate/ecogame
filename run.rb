@@ -4,7 +4,7 @@ require './herbavore'
 require './game_window'
 
 module ZOrder
-  BACKGROUND, FOOD, HERBAVORE, TEXT = *0..3
+  BACKGROUND, FOOD, HERBAVORE, MENU, TEXT = *0..4
 end
 
 window = GameWindow.new

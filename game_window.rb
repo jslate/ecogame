@@ -2,8 +2,10 @@ class GameWindow < Gosu::Window
 
   WIDTH = 720
   HEIGHT = 480
+  MENU_WIDTH = 200
   WHITE = Gosu::Color.rgb(255,255,255)
   BLACK = Gosu::Color.rgb(0, 0, 0)
+  SEMITRANSPARENT = Gosu::Color.rgba(0, 0, 0, 128)
 
   def initialize
     super(WIDTH, HEIGHT, false)
@@ -13,7 +15,7 @@ class GameWindow < Gosu::Window
   end
 
   def random_location
-    [rand(WIDTH), rand(HEIGHT - 100) + 100]
+    [rand(WIDTH), rand(HEIGHT)]
   end
 
   def update
@@ -33,10 +35,15 @@ class GameWindow < Gosu::Window
     @herbavores.each(&:draw)
     @foods.each(&:draw)
     draw_background
-    Gosu::Image.from_text(self, "herbavores: #{@herbavores.count}",
-      Gosu.default_font_name, 45).draw(20, 10, ZOrder::TEXT, 1, 1, WHITE)
-    Gosu::Image.from_text(self, "foods: #{@foods.count}",
-      Gosu.default_font_name, 45).draw(20, 50, ZOrder::TEXT, 1, 1, WHITE)
+    menu_text = Gosu::Font.new(25, {name: 'default'})
+    menu_text.draw('Herbivores', 10, 10, ZOrder::TEXT)
+    menu_text.draw_rel(@herbavores.count, MENU_WIDTH - 10, 10, ZOrder::TEXT, 1, 0)
+    menu_text.draw('Food', 10, 35, ZOrder::TEXT)
+    menu_text.draw_rel(@foods.count, MENU_WIDTH - 10, 35, ZOrder::TEXT, 1, 0)
+    # Gosu::Image.from_text(self, "herbavores: #{@herbavores.count}",
+    #   Gosu.default_font_name, 45).draw(20, 10, ZOrder::TEXT, 1, 1, WHITE)
+    # Gosu::Image.from_text(self, "foods: #{@foods.count}",
+    #   Gosu.default_font_name, 45).draw(20, 50, ZOrder::TEXT, 1, 1, WHITE)
   end
 
   def button_down(id)
@@ -47,15 +54,16 @@ class GameWindow < Gosu::Window
   end
 
   def draw_background
+    self.draw_rect(0, 0, MENU_WIDTH, 65, SEMITRANSPARENT, ZOrder::MENU)
     self.draw_quad(
-      0, 100, WHITE,
-      self.width, 100, WHITE,
+      0, 0, WHITE,
+      self.width, 0, WHITE,
       0, self.height, WHITE,
       self.width, self.height, WHITE,
       ZOrder::BACKGROUND)
   end
 
-  def self.draw_rect(x, y, width, height, color, zorder)
+  def draw_rect(x, y, width, height, color, zorder)
     draw_quad(
       x, y, color,
       x + width, y, color,
