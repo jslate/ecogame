@@ -3,6 +3,7 @@ class Herbivore
   DEFAULT_SIZE = 25
   DEFAULT_HUNGER = 50
   MAX_HUNGER = 100
+  MAX_SIZE = 100
 
   def initialize(window, x, y)
     @window = window
@@ -30,11 +31,7 @@ class Herbivore
   end
 
   def draw
-    @window.draw_quad(@x, @y, color,
-      @x + quad_size, @y, color,
-      @x, @y + quad_size, color,
-      @x + quad_size, @y + quad_size, color,
-    ZOrder::HERBIVORE)
+    @window.draw_rect(@x, @y, quad_size, quad_size, color, ZOrder::HERBIVORE)
   end
 
   def quad_size
@@ -43,7 +40,7 @@ class Herbivore
 
   def eat(foods)
     foods.each do |food|
-      if (collides?(food.x, food.y) && @hunger >= 50)
+      if (collides?(food.x, food.y) && hungry?)
         food.eat
         @size += 2
         @hunger -= 2
@@ -56,7 +53,7 @@ class Herbivore
   end
 
   def multiply
-    if @size > 100
+    if @size > MAX_SIZE
       [0,1].map { |_i| self.class.new(@window, @x, @y) }
     else
       [self]
@@ -64,6 +61,10 @@ class Herbivore
   end
 
   private
+
+  def hungry?
+    @hunger >= 50
+  end
 
   def blueness
     255 - redness
