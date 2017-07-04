@@ -1,6 +1,8 @@
 class Herbivore
 
-  attr_reader :dead
+  DEFAULT_SIZE = 25
+  DEFAULT_HUNGER = 50
+  MAX_HUNGER = 100
 
   def initialize(window, x, y)
     @window = window
@@ -8,20 +10,12 @@ class Herbivore
     @y = y
     @angle = rand(360)
     @speed = 1
-    @size = 50
-    @hunger = 50
+    @size = DEFAULT_SIZE
+    @hunger = DEFAULT_HUNGER
   end
 
   def color
     Gosu::Color.rgb(redness, 0, blueness)
-  end
-
-  def blueness
-    100/@hunger.to_f * 255
-  end
-
-  def redness
-    255 - blueness
   end
 
   def move
@@ -32,7 +26,7 @@ class Herbivore
     @y += Gosu::offset_y(@angle, @speed)
     @x %= @window.width
     @y %= @window.height
-    @hunger += 1
+    @hunger += 1 unless @hunger >= MAX_HUNGER
   end
 
   def draw
@@ -49,12 +43,16 @@ class Herbivore
 
   def eat(foods)
     foods.each do |food|
-      if (collides?(food.x, food.y) && @hunger > 100)
+      if (collides?(food.x, food.y) && @hunger >= 50)
         food.eat
         @size += 2
         @hunger -= 2
       end
     end
+  end
+
+  def dead?
+    @dead
   end
 
   def multiply
@@ -63,6 +61,16 @@ class Herbivore
     else
       [self]
     end
+  end
+
+  private
+
+  def blueness
+    255 - redness
+  end
+
+  def redness
+    [@hunger/100.0, 1.0].min * 255
   end
 
   def collides?(x, y)
