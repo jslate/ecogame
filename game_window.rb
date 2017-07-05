@@ -56,8 +56,8 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    @herbivores.each(&:draw)
     @predators.each(&:draw)
+    @herbivores.each(&:draw)
     @foods.each(&:draw)
     draw_background
     if @started
@@ -102,7 +102,7 @@ class GameWindow < Gosu::Window
   def update_predators
     @predators.reject! do |predator|
       predator.eat(@herbivores)
-      predator.move
+      predator.move(@herbivores)
       predator.dead?
     end
     @predators = @predators.map(&:multiply).flatten
@@ -110,11 +110,11 @@ class GameWindow < Gosu::Window
 
   def update_foods
     @foods.reject!(&:eaten)
-    @foods += add_to_window(Food, new_food_count)
+    @foods += add_to_window(Food, new_food_count) unless @foods.size > 5000
   end
 
   def new_food_count
-    (@foods.count * NEW_FOODS_MULTIPLIER).to_i
+    (@foods.count * NEW_FOODS_MULTIPLIER).ceil
   end
 
   def draw_background

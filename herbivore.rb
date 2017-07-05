@@ -1,5 +1,5 @@
 class Herbivore
-  attr_reader :x, :y
+  attr_reader :x, :y, :size
 
   DEFAULT_SIZE = 50
   DEFAULT_HUNGER = 35
@@ -25,7 +25,7 @@ class Herbivore
   def move
     @size -= 0.1
     @dead = true if @size < 0
-    @angle += rand(10) - 10 if rand(10) > 9
+    @angle += rand(10) - 10 if rand(100) > 99
     @x += Gosu::offset_x(@angle, @speed)
     @y += Gosu::offset_y(@angle, @speed)
     @x %= @window.width
