@@ -4,7 +4,7 @@ class GameWindow < Gosu::Window
   HEIGHT = 480
   MENU_WIDTH = 200
   MENU_HEIGHT = 65
-  NEW_FOODS_MULTIPLIER = 0.005
+  NEW_FOODS_MULTIPLIER = 0.01
   TEXT_SIZE = 25
 
   WHITE = Gosu::Color.rgb(255,255,255)

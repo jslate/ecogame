@@ -3,6 +3,7 @@ class Herbivore
   DEFAULT_SIZE = 25
   DEFAULT_HUNGER = 50
   MAX_HUNGER = 100
+  HUNGER_THRESHOLD = 30
   MAX_SIZE = 100
 
   def initialize(window, x, y)
@@ -63,7 +64,7 @@ class Herbivore
   private
 
   def hungry?
-    @hunger >= 50
+    @hunger >= HUNGER_THRESHOLD
   end
 
   def blueness
