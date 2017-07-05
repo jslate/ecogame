@@ -1,5 +1,4 @@
-class Herbivore
-  attr_reader :x, :y
+class Predator
 
   DEFAULT_SIZE = 50
   DEFAULT_HUNGER = 35
@@ -19,7 +18,7 @@ class Herbivore
   end
 
   def color
-    Gosu::Color.rgb(redness, 0, blueness)
+    Gosu::Color.rgb(0, greenness, 0)
   end
 
   def move
@@ -41,15 +40,10 @@ class Herbivore
     @size / 5
   end
 
-  def be_eaten
-    @dead = true
-    @size = 0
-  end
-
-  def eat(foods)
-    foods.each do |food|
-      if (collides?(food.x, food.y) && hungry?)
-        food.eat
+  def eat(herbivores)
+    herbivores.each do |herbivore|
+      if (collides?(herbivore.x, herbivore.y) && hungry?)
+        herbivore.be_eaten
         @size += 2
         @hunger -= FOOD_SATIATION
       end
@@ -74,12 +68,8 @@ class Herbivore
     @hunger >= HUNGER_THRESHOLD
   end
 
-  def blueness
-    255 - redness
-  end
-
-  def redness
-    [@hunger/100.0, 1.0].min * 255
+  def greenness
+    255 - [@hunger/100.0, 1.0].min * 255
   end
 
   def collides?(x, y)
