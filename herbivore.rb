@@ -1,10 +1,11 @@
 class Herbivore
 
-  DEFAULT_SIZE = 25
-  DEFAULT_HUNGER = 50
+  DEFAULT_SIZE = 50
+  DEFAULT_HUNGER = 35
   MAX_HUNGER = 100
   HUNGER_THRESHOLD = 30
   MAX_SIZE = 100
+  FOOD_SATIATION = 5
 
   def initialize(window, x, y)
     @window = window
@@ -44,7 +45,7 @@ class Herbivore
       if (collides?(food.x, food.y) && hungry?)
         food.eat
         @size += 2
-        @hunger -= 2
+        @hunger -= FOOD_SATIATION
       end
     end
   end
