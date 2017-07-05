@@ -17,8 +17,8 @@ class GameWindow < Gosu::Window
     @font = Gosu::Font.new(TEXT_SIZE, {name: 'default'})
     @foods = []
     @herbivores = []
-    @herbivore_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 100, 100)
-    @food_slider = Gosui::Slider.new(self, 50, 400, ZOrder::TEXT, 100, 1000)
+    @herbivore_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 200, 100, label: 'Herbivores', markers: 1)
+    @food_slider = Gosui::Slider.new(self, 50, 400, ZOrder::TEXT, 200, 1000, label: 'Food', markers: 1)
     @started = false
   end
 

@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:ASlated/gosui.git
-  revision: 738e4cdfdbe9387ec002cfc24529ec61d722dec1
+  revision: e30c6cdd86818088919305afa340e07837d1f59d
   specs:
-    gosui (0.1.1)
+    gosui (0.2.1)
       gosu (~> 0.12)
 
 GEM
