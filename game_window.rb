@@ -17,8 +17,9 @@ class GameWindow < Gosu::Window
     @font = Gosu::Font.new(TEXT_SIZE, {name: 'default'})
     @foods = []
     @herbivores = []
-    @herbivore_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 200, 100, label: 'Herbivores', markers: 1)
-    @food_slider = Gosui::Slider.new(self, 50, 400, ZOrder::TEXT, 200, 1000, label: 'Food', markers: 1)
+    @herbivore_slider = Gosui::Slider.new(self, 50, 200, ZOrder::TEXT, 200, 100, label: 'Herbivores', markers: 1)
+    @food_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 200, 1000, label: 'Food', markers: 1)
+    @start_button = Gosui::Button.new(self, 50, 400, ZOrder::TEXT, self.method(:start), label: 'Submit', height: 50, width: 100)
     @started = false
   end
 
@@ -45,6 +46,7 @@ class GameWindow < Gosu::Window
     unless @started
       @food_slider.update
       @herbivore_slider.update
+      @start_button.update
     end
   end
 
@@ -57,6 +59,7 @@ class GameWindow < Gosu::Window
     else
       @herbivore_slider.draw
       @food_slider.draw
+      @start_button.draw
     end
   end
 
