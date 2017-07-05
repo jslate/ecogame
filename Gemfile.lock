@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:ASlated/gosui.git
+  revision: 738e4cdfdbe9387ec002cfc24529ec61d722dec1
+  specs:
+    gosui (0.1.1)
+      gosu (~> 0.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -8,6 +15,7 @@ PLATFORMS
 
 DEPENDENCIES
   gosu
+  gosui!
 
 BUNDLED WITH
    1.15.1

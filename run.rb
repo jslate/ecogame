@@ -1,4 +1,5 @@
 require 'gosu'
+require 'gosui'
 require './food'
 require './herbivore'
 require './game_window'

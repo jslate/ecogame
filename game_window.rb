@@ -4,8 +4,6 @@ class GameWindow < Gosu::Window
   HEIGHT = 480
   MENU_WIDTH = 200
   MENU_HEIGHT = 65
-  HERBIVORE_START_COUNT = 5
-  FOOD_START_COUNT = 1000
   NEW_FOODS_MULTIPLIER = 0.005
   TEXT_SIZE = 25
 
@@ -16,9 +14,23 @@ class GameWindow < Gosu::Window
   def initialize
     super(WIDTH, HEIGHT, false)
     self.caption = "EcoGame"
-    @foods = add_to_window(Food, FOOD_START_COUNT)
-    @herbivores = add_to_window(Herbivore, HERBIVORE_START_COUNT)
     @font = Gosu::Font.new(TEXT_SIZE, {name: 'default'})
+    @foods = []
+    @herbivores = []
+    @herbivore_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 100, 100)
+    @food_slider = Gosui::Slider.new(self, 50, 400, ZOrder::TEXT, 100, 1000)
+    @started = false
+  end
+
+  def start
+    return if @started
+    @herbivores = add_to_window(Herbivore, @herbivore_slider.value)
+    @foods = add_to_window(Food, @food_slider.value)
+    @started = true
+  end
+
+  def needs_cursor?
+    true
   end
 
   def add_to_window(klass, count)
@@ -30,19 +42,30 @@ class GameWindow < Gosu::Window
   def update
     update_herbivores
     update_foods
+    unless @started
+      @food_slider.update
+      @herbivore_slider.update
+    end
   end
 
   def draw
     @herbivores.each(&:draw)
     @foods.each(&:draw)
     draw_background
-    draw_menu
+    if @started
+      draw_menu
+    else
+      @herbivore_slider.draw
+      @food_slider.draw
+    end
   end
 
   def button_down(id)
     case id
     when Gosu::KbEscape
       close
+    when Gosu::KbReturn
+      start
     end
   end
 
