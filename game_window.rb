@@ -21,7 +21,7 @@ class GameWindow < Gosu::Window
     @herbivore_slider = Gosui::Slider.new(self, 50, 200, ZOrder::TEXT, 200, 100, label: 'Herbivores', markers: 1)
     @food_slider = Gosui::Slider.new(self, 50, 100, ZOrder::TEXT, 200, 1000, label: 'Food', markers: 1)
     @predator_slider = Gosui::Slider.new(self, 50, 300, ZOrder::TEXT, 200, 20, label: 'Predators', markers: 1)
-    @start_button = Gosui::Button.new(self, 50, 400, ZOrder::TEXT, self.method(:start), label: 'Submit', height: 50, width: 100)
+    @start_button = Gosui::Button.new(self, 50, 400, ZOrder::TEXT, :start, label: 'Submit', height: 50, width: 100)
     @started = false
   end
 
